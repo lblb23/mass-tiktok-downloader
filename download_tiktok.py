@@ -33,27 +33,22 @@ with open("urls.txt") as file:
 for url in url_lists:
     try:
         driver.get("https://godownloader.com/en")
+        time.sleep(5)
 
         elem = driver.find_elements(By.TAG_NAME, "input")[0]
         elem.clear()
         elem.send_keys(url)
 
-        driver.implicitly_wait(10)
-        elem = driver.find_element(By.XPATH, '//button[text()="Download Now"]')
-        elem.click()
+        time.sleep(5)
 
-        driver.implicitly_wait(1)
-        #if driver.find_element(By.XPATH, "//*[contains(text(), 'Please enter a valid URL')]").is_displayed():
-        if len(driver.find_elements(By.XPATH, '//div[@role="alert"]')) > 0:
-            logger.info(f"Invalid URL: {url}")
-            continue
+        if len(driver.find_elements(By.XPATH, '//a[contains(text(), "Video No Watermark HD")]')) == 0:
+            elem = driver.find_element(By.XPATH, '//button[text()="Download Now"]')
+            elem.click()
 
-        driver.implicitly_wait(10)
+        time.sleep(5)
+
         if "tiktok.com" in url:
-            elem = driver.find_element(By.XPATH, '//button[text()="Download Video No Watermark (HD)"]')
-        #elif "instagram.com" in url:
-        #    driver.implicitly_wait(30)
-        #    elem = driver.find_element(By.XPATH, '//button[text()="Download Video Best Quality"]')
+            elem = driver.find_element(By.XPATH, '//a[contains(text(), "Video No Watermark HD")]')
         else:
             logger.info(f"Invalid URL: {url}")
             continue
