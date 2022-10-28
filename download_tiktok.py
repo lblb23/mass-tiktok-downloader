@@ -14,7 +14,7 @@ logger.info("Start working")
 options = webdriver.ChromeOptions()
 # Version: https://portableapps.com/apps/internet/google_chrome_portable
 options.binary_location = "GoogleChromePortable\\App\\Chrome-bin\\chrome.exe"
-options.add_argument('headless');
+#options.add_argument('headless');
 options.add_experimental_option("prefs", {
     "download.default_directory": f"{os.getcwd()}\\files",
     "download.prompt_for_download": False,
@@ -41,14 +41,14 @@ for url in url_lists:
 
         time.sleep(5)
 
-        if len(driver.find_elements(By.XPATH, '//a[contains(text(), "Video No Watermark HD")]')) == 0:
+        if len(driver.find_elements(By.XPATH, '//a[contains(text(), "Video No Watermark")]')) == 0:
             elem = driver.find_element(By.XPATH, '//button[text()="Download Now"]')
             elem.click()
 
         time.sleep(5)
 
         if "tiktok.com" in url:
-            elem = driver.find_element(By.XPATH, '//a[contains(text(), "Video No Watermark HD")]')
+            elem = driver.find_element(By.XPATH, '//a[contains(text(), "Video No Watermark")]')
         else:
             logger.info(f"Invalid URL: {url}")
             continue
@@ -62,5 +62,5 @@ for url in url_lists:
 
 logger.info("All TikToks downloaded")
 
-time.sleep(10)
+time.sleep(300)
 driver.close()
